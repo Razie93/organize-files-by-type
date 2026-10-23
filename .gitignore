@@ -1,0 +1,32 @@
+# Private recovery state and machine-specific outputs (any depth)
+.organize-files-*
+*.csv
+*.csv.pending
+*.pending
+*.journal
+*.journal.*
+*.jsonl
+*.log
+*.tmp
+*.bak
+*.dmp
+*.etl
+*.trx
+*.coverage
+*.coverage.*
+TestResults/
+test-results/
+test-output/
+artifacts/
+coverage/
+logs/
+recovery/
+diagnostics/
+# Local editor/settings/secrets
+.vs/
+.vscode/
+.idea/
+.env
+.env.*
+*.pfx
+*.p12

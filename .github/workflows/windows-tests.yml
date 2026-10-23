@@ -1,0 +1,26 @@
+name: Windows PowerShell integration tests
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  integration:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out reviewed source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Run dependency-free integration suite
+        shell: powershell
+        env:
+          ORG_TEST_TEMP: ${{ runner.temp }}\organizer-test-scratch
+        run: |
+          if ($PSVersionTable.PSVersion.Major -ne 5 -or $PSVersionTable.PSVersion.Minor -ne 1) {
+            throw 'Windows PowerShell 5.1 is required for this compatibility job.'
+          }
+          & powershell.exe -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .\tests\Integration.Tests.ps1
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
